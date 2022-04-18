@@ -1,0 +1,172 @@
+<div class="container">
+
+    <div class="container">
+        <div class="row">
+            <div class="row">
+
+                <div class="col s12">
+                    <h4>Instituto</h4>
+                    <select (change)="cambioInstitutoL($event.target)" class="browser-default">
+                        <ng-container *ngFor='let item of institutos'>
+                            <option [value]="item.idInstituto"
+                                *ngIf="item.idInstituto!=0">
+                                {{item.nombreInstituto}}
+                            </option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <h4>Carrera</h4>
+                        <select (change)="cambioCarreraL($event.target)" class="browser-default">
+                            <ng-container *ngFor='let item2 of carreras'>
+                                <option [value]="item2.idCarrera">
+                                    {{item2.nombreCarrera}}
+                                </option>
+                            </ng-container>
+                        </select>
+                    </div>
+                </div>
+
+                <table>
+                    <tr *ngFor="let profesor of profesores; let indice= index">
+                        <div class="container base">
+
+                            <div class="base icon">
+                                <img class="circle responsive-img" src="assets/user.jpg">
+                            </div>
+                            <div class="container">
+
+                                <td>
+                                    <h6>{{profesor.nombresP}} {{profesor.apellidoP}} {{profesor.apellidoM}}
+                                        <th>{{profesor.grado}}</th>
+                                    </h6>
+                                </td>
+                            </div>
+                        </div>
+
+                        <td>
+                            <th>
+                                <div class="base1">
+                                    <div>
+
+                                        <a (click)="editarProfesor(profesor)" class="btn-floating blue"><i
+                                                class="material-icons">edit</i></a>
+                                    </div>
+                                    <div>
+
+                                        <a (click)="eliminarProfesor(profesor.idProfesor)" class="btn-floating red"><i
+                                                class="material-icons">delete</i></a>
+                                    </div>
+                                </div>
+                            </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="editarProf" class="modal">
+        <div class="modal-content">
+            <div class="row" style="margin-bottom: 0px !important">
+                <div class="col s12">
+                    <h5 class="center" style="color: black;"> Editar Profesor
+                    </h5>
+                </div>
+            </div>
+            <div style="border: .5px solid #78909c;padding: 10px;">
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <label class="active"> Nombre</label>
+                        <input [(ngModel)]="profesorEdit.nombresP" type="text" placeholder="nombre(s)">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6 input-field">
+                        <label class="active"> Apellido Paterno</label>
+                        <input [(ngModel)]="profesorEdit.apellidoP" type="text" placeholder="Apellido
+                                Paterno">
+                    </div>
+                    <div class="col s6 input-field">
+                        <label class="active"> Apellido Materno</label>
+                        <input [(ngModel)]="profesorEdit.apellidoM" type="text" placeholder="Apellido
+                                Materno">
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col s12 input-field">
+                        <label class="active"> Correo</label>
+                        <input [(ngModel)]="profesorEdit.correoProfesor" type="text" placeholder="Correo">
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col s12 input-field">
+                        <label class="active"> Constraseña</label>
+                        <input [(ngModel)]="profesorEdit.password" type="password" placeholder="Password" disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <label>Instituto</label>
+                        <select class="browser-default" disabled>
+                                <ng-container *ngFor='let item of institutos'>
+                                    <option [value]="item.idInstituto"
+                                        *ngIf="item.idInstituto!=0">{{item.nombreInstituto}}
+                                    </option>
+                                </ng-container>
+                            </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <label>Carrera</label>
+                        <select class="browser-default" disabled>
+                                <option [value]="item.idCarrera" *ngFor='let
+                                    item of carreras'>{{item.nombreCarrera}}</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <label class="active"> Grado</label>
+                        <input [(ngModel)]="profesorEdit.grado" type="text" placeholder="Grado">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6">
+                        <label>Tipo Profesor</label>
+                        <select (change)="cambioTipoProfesor($event.target)" class="browser-default">
+                                <option [value]="item.idTipoProfesor"
+                                    *ngFor='let item of
+                                    tipoProfesor'>{{item.nombreTipo}}</option>
+                            </select>
+                    </div>
+                    <div class="col s6 input-field">
+                        <label class="active"> Nombre APA</label>
+                        <input [(ngModel)]="profesorEdit.nombreApa" type="text" placeholder="Nombre
+                                APA">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6 center">
+                        <a (click)="ModificarProfesor()" class="modal-action
+                                waves-effect
+                                waves-green btn-flat">Enviar</a>
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect
+                                waves-green btn-flat">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

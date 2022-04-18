@@ -1,0 +1,116 @@
+<div class="container">
+
+    <div class="container">
+        <div class="row">
+            <div class="row">
+                <div class="col s12">
+                    <h3>Instituto</h3>
+                    <select (change)="listarCambioInstituto($event.target)" class="browser-default">
+                        <ng-container *ngFor='let item of institutos'>
+                            <option [value]="item.idInstituto"
+                                *ngIf="item.idInstituto!=0">{{item.nombreInstituto}}
+                            </option>
+                        </ng-container>
+                    </select>
+                </div>
+            </div>
+            <table>
+                <tr *ngFor="let carrera of carreras; let indice= index">
+                    <div class="container base">
+
+                        <div class="base icon">
+
+                            <i class="material-icons">book</i>
+                        </div>
+                        <div class="container">
+
+                            <td>
+                                <h6> {{carrera.nombreCarrera}}
+                                </h6>
+                            </td>
+                        </div>
+                    </div>
+
+                    <td>
+                        <th>
+                            <div class="base1">
+                                <div>
+
+                                    <a (click)="editarCarrera(carrera)" class="btn-floating blue"><i
+                                            class="material-icons">edit</i></a>
+                                </div>
+                                <div>
+
+                                    <a (click)="eliminarCarrera(carrera.idCarrera)" class="btn-floating red"><i
+                                            class="material-icons">delete</i></a>
+                                </div>
+                            </div>
+                        </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="modificarCarrera" class="modal">
+        <div class="modal-content">
+            <div class="row" style="margin-bottom: 0px !important">
+                <div class="col s12">
+                    <h5 class="center" style="color: black;"> Editar Carrera
+                    </h5>
+                </div>
+            </div>
+            <div style="border: .5px solid #78909c;padding: 10px;">
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <label class="active"> Nombre</label>
+                        <input [(ngModel)]="carreraActual.nombreCarrera" type="text" placeholder="nombre carrera">
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col s12 input-field">
+                        <label class="active"> Codigo Carrera</label>
+                        <input [(ngModel)]="carreraActual.codigoCarrera" type="text" placeholder="Codigo Carrera" value="carreraActual.codigoCarrera">
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="row">
+                        <div class="col s12">
+                            <label>Instituto</label>
+                            <select (change)="modificarCambioInstituto($event.target)" class="browser-default" value="profesorActual.idInstituto">
+                                    <ng-container *ngFor='let item of
+                                        institutos'>
+                                        <option [value]="item.idInstituto"
+                                            *ngIf="item.idInstituto!=0">{{item.nombreInstituto}}
+                                        </option>
+                                    </ng-container>
+                                </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <label>Siglas</label>
+                        <input [(ngModel)]="carreraActual.siglas" type="text" placeholder="Siglas" value="carreraActual.siglas">
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col s6 center">
+                        <a (click)="modificarCarrera()" class="modal-action
+                                waves-effect
+                                waves-green btn-flat">Enviar</a>
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect
+                                waves-green btn-flat">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

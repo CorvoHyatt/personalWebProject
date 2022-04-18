@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="container">
+
+        <div class="row">
+            <div class="col s12">
+                <h4>Instituto</h4>
+                <select (change)="cambioInstituto($event.target)" class="browser-default">
+                    <ng-container *ngFor='let item of institutos'>
+                        <option [value]="item.idInstituto"
+                            *ngIf="item.idInstituto!=0">
+                            {{item.nombreInstituto}}
+                        </option>
+                    </ng-container>
+                </select>
+            </div>
+            <table>
+                <tr *ngFor="let articulo of articulos; let i=index">
+                    <!-- el * es para un for-->
+                    <td>
+                        <div class="container base">
+
+                            <div class="base icon">
+
+                                <i class="material-icons">description</i>
+                            </div>
+                            <div class="container">
+
+                                <td>
+                                    <h6>
+                                        <th>{{articulo.titulo}}</th>
+                                    </h6>
+                                    <div *ngFor="let aut of articulo.profesores">
+                                        <tr>{{aut.nombresP}} {{aut.apellidoP }} {{aut.apellidoM}} <sup>{{aut.pos}} </sup></tr>
+                                    </div>
+                                </td>
+                            </div>
+                        </div>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

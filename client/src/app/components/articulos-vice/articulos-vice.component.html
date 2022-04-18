@@ -1,0 +1,109 @@
+<div class="contenedor-principal">
+	<input type="date" value="{{ini}}" (change)="CambioFechaIni()" id="fechaIni">
+	<input type="date" value="{{fin}}" (change)="CambioFechaFin()" id="fechaFin">
+	<table>
+		<tr *ngFor="let profesor of profesores; let i=index">
+			<!-- el * es para un for-->
+			<td>
+				{{i}}--{{profesor.nombresP}}
+			
+			</td>
+			<td>
+				<a class="right
+                black-text" (click)="modificarProfesor(i)"><i style="cursor:pointer;" class="material-icons
+                vertical-align-middle">edit</i></a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="modificarProfesor" class="modal">
+	<div class="modal-content">
+		<div class="row" style="margin-bottom: 0px !important">
+			<div class="col s12">
+				<h5 class="center"> Alta Profesor</h5>
+			</div>
+		</div>
+		<div style="border: .5px solid #78909c;padding: 10px;">
+			<div class="row">
+				<div class="col s12">
+					<label> Nombre</label>
+					<input [(ngModel)]="profesorActual.nombresP" required type="string" placeholder="nombre(s)" value="profesorActual.nombresP">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 ">
+					<label>Apellido Paterno</label>
+					<input required type="string" placeholder="apellido paterno">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 ">
+					<label>Apellido Materno</label>
+					<input  required type="string"  placeholder="apellido materno" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 ">
+					<label>Correo</label>
+					<input  required type="email" placeholder="correo">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 ">
+					<label>Contraseña</label>
+					<input  required type="password" placeholder="contraseña">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 ">
+					<label>Instituto</label>
+					<select (change)="cambioInstituto($event.target)" class="browser-default" [value]="profesorActual.idInstituto">
+						<ng-container *ngFor='let item of institutos'>
+							<option [value]="item.idInstituto" *ngIf="item.idInstituto!=0">{{item.nombreInstituto}}
+							</option>
+						</ng-container>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 ">
+					<label>Carrera</label>
+					<select (change)="cambioCarrera($event.target)" class="browser-default">
+						<option [value]="item.idCarrera" *ngFor='let item of carreras'>{{item.nombreCarrera}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<label>Grado</label>
+					<input  required type="string" placeholder="grado">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<label>Tipo Profesor</label>
+					<select  class="browser-default" required type="int" placeholder="tipo profesor">
+					<option *ngFor="let item of tipoProfesores" [value]="item.idTipoProfesor">{{item.nombreTipo}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<label>Npmbre APA</label>
+					<input  required type="string" placeholder="Nombre APA">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6 center">
+					<a (click)="darAltaProfesor()" class=" modal-action 
+	waves-effect waves-green btn-flat">Enviar</a>
+				</div>
+				<div class="col s6 center">
+					<a class=" modal-action modal-close waves-effect waves-green
+	btn-flat">Cancelar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

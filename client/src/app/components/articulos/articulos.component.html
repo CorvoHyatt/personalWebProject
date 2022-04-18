@@ -1,0 +1,60 @@
+<div class="container ">
+    <div class="container center">
+        <table>
+            <tr>
+                <th>Inicio</th>
+                <td><input type="date" value="{{ini}}" (change)="CambioFechaIni()" id="fechaIni"></td>
+                <th>Final</th>
+                <td><input type="date" value="{{fin}}" (change)="CambioFechaFin()" id="fechaFin"></td>
+            </tr>
+        </table>
+    </div>
+
+    <table>
+        <tr *ngFor="let articulo of datos;">
+            <td>{{articulo.fecha}}</td>
+            <td>
+                <div>
+                    <th>{{articulo.titulo}}</th>
+
+                    <div *ngFor="let aut of articulo.autores">
+                        <tr>{{aut.nombresP}} {{aut.apellidoP }} {{aut.apellidoM}} <sup>{{aut.pos}} </sup><a style="cursor: pointer;"><i class="material-icons">delete</i></a></tr>
+
+
+                    </div>
+                </div>
+
+            </td>
+            <td>
+                <div class="row">
+
+                    <div class="row">
+                        <div class="mostrarArticulos s6">
+                            <th><a style="cursor: pointer;">+UTM</a></th>
+                            <a style="cursor: pointer;"><i class="material-icons">edit</i></a>
+
+                            <!-- TODO: Mostrar en otra columna el icono del archivo subido y el nombre con link para abrir el archivo  ...-->
+                            <!-- (word,pdf,img,excel,powerpoint) al subir más de un archivo se nombra con idArticulo_A, idArticulo_B -->
+                            <!-- Usar split,multiples archivos de subida -->
+                        </div>
+                    </div>
+                    <div class="row file">
+                        <form action="#">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input multiple (change)="cargarArchivo($event.target, articulo.idArticulo)" type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+
+</div>

@@ -1,0 +1,10 @@
+.mostrarArticulos {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.file {
+    height: 1rem;
+    width: 20rem;
+}

@@ -1,0 +1,70 @@
+
+
+<section class="container">
+	<div class="row">
+		<h3 class="center-align">Ingresar un Profesor</h3>
+
+		<div class="input-field col m6 l6">
+			<i class="material-icons prefix">person</i>
+			<input [(ngModel)]='profesor.nombresP' id="nombres" type="text">
+			<label for="nombres">Nombres</label>
+		</div>
+
+		<div class="input-field col m6 l6">
+			<i class="material-icons prefix">person</i>
+			<input [(ngModel)]='profesor.apellidoP' id="apellidoPaterno" type="text">
+			<label for="apellidoPaterno">Apellido Paterno</label>
+		</div>
+
+		<div class="input-field col m6 l6">
+			<i class="material-icons prefix">person</i>
+			<input [(ngModel)]='profesor.apellidoM' id="apellidoMaterno" type="text">
+			<label for="apellidoMaterno">Apellido Materno</label>
+		</div>
+
+		<div class="input-field col m6 l6">
+			<i class="material-icons prefix">email</i>
+			<input [(ngModel)]='profesor.correoProfesor' id="correo" type="email">
+			<label for="correo">Correo</label>
+		</div>
+
+		<div class="input-field col m6 l6">
+			<i class="material-icons prefix">password</i>
+			<input [(ngModel)]='profesor.password' id="contraseña" type="password">
+			<label for="contraseña">Contraseña</label>
+		</div>
+
+
+		<div class="input-field col m6 l6">
+			<select [(ngModel)]='profesor.idCarrera' id="carrera">
+				<option value="" disabled selected>Selecciona una carrera</option>
+				<option value="1">Ingeniería en Computación</option>
+				<option value="2">Ingeniería en Diseño</option>
+			</select>
+			<label>Carrera</label>
+		</div>
+
+		<div class="input-field col m6 l6">
+			<i class="material-icons prefix">tag</i>
+			<input [(ngModel)]="profesor.grado" id="grado" type="text">
+			<label for="grado">Grado</label>
+		</div>
+
+		<div class="input-field col m6 l6">
+			<select [(ngModel)]='profesor.idTipoProfesor' id="tipo_profesor">
+				<option value="" disabled selected>Selecciona un tipo</option>
+				<option value="1">Ingeniería en Computación</option>
+				<option value="2">Ingeniería en Diseño</option>
+			</select>
+			<label for="tipo_profesor">Tipo de Profesor</label>
+		</div>
+
+		<div class="col m12 l12 center-align">
+			<button (click)="altaProfesor()" class="waves-effect waves-light btn" type="submit">
+				<i class="material-icons right">send</i>
+				enviar
+			</button>
+		</div>
+
+	</div>
+</section>

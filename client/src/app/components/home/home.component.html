@@ -1,0 +1,276 @@
+<app-navigation></app-navigation>
+<router-outlet></router-outlet>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large blue-grey darken-3">
+        <i class="large material-icons">add</i>
+    </a>
+    <ul>
+        <!-- // FIXME: Modificar boton -->
+        <li><a (click)="altaProfesorB()" class="btn-floating blue darken-3"><i class="material-icons">person</i></a></li>
+        <li><a (click)="agregarArticulo()" class="btn-floating indigo darken-3"><i class="material-icons">class</i></a></li>
+    </ul>
+</div>
+
+
+<div id="agregarArticulo" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h5 class="center">Registrar Publicación</h5>
+            </div>
+        </div>
+
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+                <div class="col s12">
+                    <label>Tipo CLR</label>
+                    <select class="browser-default" [(ngModel)]="articulo.tipCLR">
+						<option *ngFor='let item of tipCLR'>{{item}}</option>
+					</select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label>Titulo de la Publicación</label>
+                    <input [(ngModel)]='articulo.titulo' type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label>Nombre CLR</label>
+                    <input [(ngModel)]='articulo.nombreCLR' type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label>Estado</label>
+                    <input [(ngModel)]='articulo.estado' type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Fecha Edición</label>
+                    <input [(ngModel)]='articulo.fechaEdicion' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Tipo NI</label>
+                    <input [(ngModel)]='articulo.tipoNI' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Volumen</label>
+                    <input [(ngModel)]='articulo.volumen' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Paginas</label>
+                    <input [(ngModel)]='articulo.paginas' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Año</label>
+                    <input [(ngModel)]='articulo.anyo' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Doi</label>
+                    <input [(ngModel)]='articulo.doi' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Comprobante</label>
+                    <input [(ngModel)]='articulo.comprobante' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Indexa</label>
+                    <input [(ngModel)]='articulo.indexa' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Issue</label>
+                    <input [(ngModel)]='articulo.issue' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Editores</label>
+                    <input [(ngModel)]='articulo.editores' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Ciudad</label>
+                    <input [(ngModel)]='articulo.cuidad' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Pais</label>
+                    <input [(ngModel)]='articulo.pais' type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Editorial</label>
+                    <input [(ngModel)]='articulo.editorial' type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s6 center">
+                    <a (click)="darAltaArticulo()" class=" modal-action 
+	waves-effect waves-green btn-flat">Enviar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class=" modal-action modal-close waves-effect waves-green
+	btn-flat">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="altaProfesorB" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px
+            !important">
+            <div class="col s12">
+                <h5 class="center" style="color: black;">
+                    Alta Profesor</h5>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c;padding:
+            10px;">
+            <div class="row">
+                <div class="col s12 input-field">
+                    <label class="active"> Nombre</label>
+                    <input [(ngModel)]="profesor.nombresP" type="text" placeholder="nombre(s)">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s6 input-field">
+                    <label class="active"> Apellido Paterno</label>
+                    <input [(ngModel)]="profesor.apellidoP" type="text" placeholder="Apellido
+                        Paterno">
+                </div>
+
+                <div class="col s6 input-field">
+                    <label class="active"> Apellido Materno</label>
+                    <input [(ngModel)]="profesor.apellidoM" type="text" placeholder="Apellido
+                        Materno">
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col s6 input-field">
+                    <label class="active"> Correo</label>
+                    <input [(ngModel)]="profesor.correoProfesor" type="text" placeholder="Correo">
+                </div>
+                <div class="col s6 input-field">
+                    <label class="active"> Constraseña</label>
+                    <input [(ngModel)]="profesor.password" type="password" placeholder="Password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label>Instituto</label>
+                    <select (change)="cambioInstituto($event.target)" class="browser-default">
+                        <ng-container *ngFor='let item of
+                            institutos'>
+                            <option
+                                [value]="item.idInstituto"
+                                *ngIf="item.idInstituto!=0">{{item.nombreInstituto}}
+                            </option>
+                        </ng-container>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Carrera</label>
+                    <select (change)="cambioCarrera($event.target)" class="browser-default">
+                        <option [value]="item.idCarrera"
+                            *ngFor='let item of carreras'>{{item.nombreCarrera}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 input-field">
+                    <label class="active"> Grado</label>
+                    <input [(ngModel)]="profesor.grado" type="text" placeholder="Grado">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Tipo Profesor</label>
+                    <select (change)="cambioTipoProfesor($event.target)" class="browser-default">
+                        <option
+                            [value]="item.idTipoProfesor"
+                            *ngFor='let item of
+                            tipoProfesor'>{{item.nombreTipo}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12 input-field">
+                    <label class="active"> Nombre APA</label>
+                    <input [(ngModel)]="profesor.nombreApa" type="text" placeholder="Nombre
+                        APA">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s6 center">
+                    <a (click)="darAltaProfesor()" class="modal-action waves-effect
+                        waves-green btn-flat">Enviar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class="modal-action modal-close
+                        waves-effect waves-green btn-flat">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <app-footer></app-footer> -->

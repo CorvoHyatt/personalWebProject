@@ -1,0 +1,200 @@
+<header class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper blue-grey darken-3">
+            <a href="http://localhost:4200/home/generales/{{idProfesor}}" class="center brand-logo">UTM</a>
+            <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger "><i class="material-icons">menu</i></a> -->
+            <ul class="container hide-on-med-and-down">
+                <li>
+                    <a class="dropdown-trigger" data-target="dropdown-menu-ver">
+                        Ver
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+                <ng-container *ngIf="nivelProfesorSesion == 1; else noVice">
+                    <ul id="dropdown-menu-agregar" class="dropdown-content">
+                        <li><a (click)="altaProfesor()">Profesores</a></li>
+                        <li><a>Comisiones</a></li>
+                    </ul>
+                    <li>
+
+                        <a class="dropdown-trigger" data-target="dropdown-menu-agregar">
+                            Agregar
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+
+                    <div class="right">
+
+                        <li>
+                            <a class="dropdown-trigger" data-target="dropdown-menu-listar">
+                                Listar
+                                <i class="material-icons right">arrow_drop_down</i>
+                            </a>
+                        </li>
+                        <ul class="right row hide-on-med-and-down">
+                            <li>
+                                <a (click)="logout()">
+                                    <i class="material-icons right">exit_to_app</i></a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <ul id="dropdown-menu-listar" class="dropdown-content">
+                        <li><a href="/home/listarProfesores/{{idProfesor}}">Profesores</a></li>
+                        <li><a href="/home/listarInstitutos/{{idProfesor}}">Institutos</a></li>
+                        <li><a href="/home/listarCarreras/{{idProfesor}}">Carreras</a></li>
+                        <li><a href="/home/listarArticulos/{{idProfesor}}">Articulos</a></li>
+                    </ul>
+
+                    <div id="altaProfesor" class="modal">
+                        <div class="modal-content">
+                            <div class="row" style="margin-bottom: 0px
+                                !important">
+                                <div class="col s12">
+                                    <h5 class="center" style="color: black;">
+                                        Alta Profesor</h5>
+                                </div>
+                            </div>
+                            <div style="border: .5px solid #78909c;padding:
+                                10px;">
+                                <div class="row">
+                                    <div class="col s12 input-field">
+                                        <label class="active"> Nombre</label>
+                                        <input [(ngModel)]="profesor.nombresP" type="text" placeholder="nombre(s)">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s6 input-field">
+                                        <label class="active"> Apellido Paterno</label>
+                                        <input [(ngModel)]="profesor.apellidoP" type="text" placeholder="Apellido
+                                            Paterno">
+                                    </div>
+
+                                    <div class="col s6 input-field">
+                                        <label class="active"> Apellido Materno</label>
+                                        <input [(ngModel)]="profesor.apellidoM" type="text" placeholder="Apellido
+                                            Materno">
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col s6 input-field">
+                                        <label class="active"> Correo</label>
+                                        <input [(ngModel)]="profesor.correoProfesor" type="text" placeholder="Correo">
+                                    </div>
+                                    <div class="col s6 input-field">
+                                        <label class="active"> Constraseña</label>
+                                        <input [(ngModel)]="profesor.password" type="password" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label>Instituto</label>
+                                        <select (change)="cambioInstituto($event.target)" class="browser-default">
+                                            <ng-container *ngFor='let item of
+                                                institutos'>
+                                                <option
+                                                    [value]="item.idInstituto"
+                                                    *ngIf="item.idInstituto!=0">{{item.nombreInstituto}}
+                                                </option>
+                                            </ng-container>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label>Carrera</label>
+                                        <select (change)="cambioCarrera($event.target)" class="browser-default">
+                                            <option [value]="item.idCarrera"
+                                                *ngFor='let item of carreras'>{{item.nombreCarrera}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 input-field">
+                                        <label class="active"> Grado</label>
+                                        <input [(ngModel)]="profesor.grado" type="text" placeholder="Grado">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label>Tipo Profesor</label>
+                                        <select (change)="cambioTipoProfesor($event.target)" class="browser-default">
+                                            <option
+                                                [value]="item.idTipoProfesor"
+                                                *ngFor='let item of
+                                                tipoProfesor'>{{item.nombreTipo}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12 input-field">
+                                        <label class="active"> Nombre APA</label>
+                                        <input [(ngModel)]="profesor.nombreApa" type="text" placeholder="Nombre
+                                            APA">
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col s6 center">
+                                        <a (click)="darAltaProfesor()" class="modal-action waves-effect
+                                            waves-green btn-flat">Enviar</a>
+                                    </div>
+                                    <div class="col s6 center">
+                                        <a class="modal-action modal-close
+                                            waves-effect waves-green btn-flat">Cancelar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #noVice>
+
+                    <li>
+                        <a class="dropdown-trigger" data-target="dropdown-menu-modificar" href="#">
+                            Modificar
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                    <ul class="right row hide-on-med-and-down">
+                        <li>
+                            <a (click)="logout()">
+                                <i class="material-icons right">exit_to_app</i></a>
+                        </li>
+
+                    </ul>
+                </ng-template>
+            </ul>
+
+
+            <ul id="dropdown-menu-ver" class="dropdown-content" style="min-width:
+                150px;">
+                <li><a href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
+                <li><a href="/home/articulos/{{idProfesor}}">Articulos</a></li>
+                <li><a>Profesores</a></li>
+                <li><a>Comisiones</a></li>
+            </ul>
+
+            <ul id="dropdown-menu-modificar" class="dropdown-content">
+                <li><a>Artículos</a></li>
+                <li><a>Materias</a></li>
+                <li><a>Comisiones</a></li>
+            </ul>
+
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="sass.html">Sass1</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">Javascript</a></li>
+        <li><a href="mobile.html">Mobile</a></li>
+    </ul>
+</header>

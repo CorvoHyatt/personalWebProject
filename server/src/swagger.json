@@ -1,0 +1,1100 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.3   ",
+        "title": "REST API proyectoUTM",
+        "description": "<html><body>Esta es la documentación de la API para el sistema de Investigación Docencia.<p>Para poder usar esta API es necesario solicitar el token y con esto poder utilizar los servicios proporcionados.</p><br><p><b>Autenticación y token de API</b></p><p>La Universidad Tecnológica de la Mixteca (UTM) proporciona el api-token. Una vez que haya creado y confirmado su cuenta.</p></body></html>",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Institutos",
+            "description": "API para obtener información de los institutos de la UTM"
+        },
+        {
+            "name": "Carreras",
+            "description": "API para obtener información de las carreras de la UTM"
+        },
+        {
+            "name": "Profesores",
+            "description": "API para obtener información de los profesores de la UTM"
+        },
+        {
+            "name": "Tipos de Profesores",
+            "description": "API para obtener información de los tipos de profesores de la UTM"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/institutos": {
+            "get": {
+                "tags": [
+                    "Institutos"
+                ],
+                "summary": "Listado de todos los institutos que existen en la UTM.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los institutos que existen en la UTM.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los institutos existentes en la UTM?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idInstituto": 1,
+                                    "codigo": "001",
+                                    "nombre": "Instituto de electrónica y mecatrónica"
+                                },
+                                {
+                                    "idInstituto": 2,
+                                    "codigo": "002",
+                                    "nombre": "Instituto de computación"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Institutos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/institutos/{idInstituto}": {
+            "get": {
+                "tags": [
+                    "Institutos"
+                ],
+                "summary": "Listado de un instituto en particular.",
+                "description": "<p>Servicio que devuelve un instituto de la UTM</p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idInstituto": 2,
+                                    "codigo": "002",
+                                    "nombreInstituto": "Instituto de computación"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Instituto"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "idInstituto",
+                        "in": "path",
+                        "required": true,
+                        "description": "idInstituto del instituto del cuál se requiere la información",
+                        "type": "number",
+                        "default": "8"
+                    }
+                ]
+            }
+        },
+        "/api/institutos/eliminar/{idInstituto}": {
+            "delete": {
+                "summary": "Eliminar un instituto",
+                "operationId": "eliminar",
+                "parameters": [
+                    {
+                        "name": "idInstituto",
+                        "in": "path",
+                        "description": "id del Instituto a eliminar",
+                        "required": true,
+                        "default": 14
+                    }
+                ],
+                "tags": [
+                    "Institutos"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/institutos/create": {
+            "post": {
+                "summary": "Creando un instituto",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "instituto",
+                        "in": "body",
+                        "description": "Instituto agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoInstituto"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Institutos"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/institutos/actualizar/{idInstituto}": {
+            "put": {
+                "summary": "Modificando un instituto",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idInstituto",
+                        "in": "path",
+                        "description": "id del Instituto a eliminar",
+                        "required": true,
+                        "default": 18
+                    },
+                    {
+                        "name": "Instituto",
+                        "in": "body",
+                        "description": "Instituto a modificar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ViejoInstituto"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Institutos"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carreras": {
+            "get": {
+                "tags": [
+                    "Carreras"
+                ],
+                "summary": "Listado de todos los institutos que existen en la UTM.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los institutos que existen en la UTM.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las carreras existentes en la UTM?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idCarrera": 1,
+                                    "codigoCarrera": "001",
+                                    "nombre": "Carrera de electrónica",
+                                    "idInstituto": "01"
+                                },
+                                {
+                                    "idCarrera": 2,
+                                    "codigoCarrera": "002",
+                                    "nombre": "Carrera de computación",
+                                    "idInstituto": "02"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Institutos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carreras/{idCarrera}": {
+            "get": {
+                "tags": [
+                    "Carreras"
+                ],
+                "summary": "Listado de una carrera en particular.",
+                "description": "<p>Servicio que devuelve una carrera de la UTM </p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idCarrera": 2,
+                                    "codigoCarrera": "002",
+                                    "nombre": "Instituto de computación",
+                                    "idInstituto": "02"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Carrera"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "idCarrera",
+                        "in": "path",
+                        "required": true,
+                        "description": "idCarrera del instituto del cuál se requiere la información",
+                        "type": "number",
+                        "default": "3"
+                    }
+                ]
+            }
+        },
+        "/api/carreras/eliminar/{idCarrera}": {
+            "delete": {
+                "summary": "Eliminar una carrera",
+                "operationId": "eliminar",
+                "parameters": [
+                    {
+                        "name": "idCarrera",
+                        "in": "path",
+                        "description": "id de la Carrera a eliminar",
+                        "required": true,
+                        "default": 4
+                    }
+                ],
+                "tags": [
+                    "Carreras"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carreras/create": {
+            "post": {
+                "summary": "Creando una carrera",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "carrera",
+                        "in": "body",
+                        "description": "Carrera agregada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaCarrera"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Carreras"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carreras/actualizar/{idCarrera}": {
+            "put": {
+                "summary": "Modificando una Carrera",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCarrera",
+                        "in": "path",
+                        "description": "id de la carrera a actualizar",
+                        "required": true,
+                        "default": 18
+                    },
+                    {
+                        "name": "Carrera",
+                        "in": "body",
+                        "description": "Carrera a modificar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ViejaCarrera"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Carreras"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/profesores": {
+            "get": {
+                "tags": [
+                    "Profesores"
+                ],
+                "summary": "Listado de todos los profesores que existen en la UTM.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los profesores que existen en la UTM.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los profesores existentes en la UTM?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idProfesor": 1,
+                                    "nombre": "Raul",
+                                    "apellidoPaterno": "Ruvalcaba",
+                                    "apellidoMaterno": "Barajas",
+                                    "correoProfesor": "corvohyatt@gmail.com",
+                                    "contraseña": "481632",
+                                    "nivel": "El mas chingon de los niveles",
+                                    "idCarrera": "13",
+                                    "gradoAcademico": "Doctorado",
+                                    "tipo": "03"
+                                },
+                                {
+                                    "idProfesor": 2,
+                                    "nombre": "Laura",
+                                    "apellidoPaterno": "Alvarez",
+                                    "apellidoMaterno": "Guevara",
+                                    "correoProfesor": "lauu.aalv@gmail.com",
+                                    "contraseña": "123456",
+                                    "nivel": "El mas chingon de los niveles",
+                                    "idCarrera": "03",
+                                    "gradoAcademico": "Doctorado",
+                                    "tipo": "03"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Profesores"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/profesores/{idProfesor}": {
+            "get": {
+                "tags": [
+                    "Profesores"
+                ],
+                "summary": "Listado de un profesor en particular.",
+                "description": "<p>Servicio que devuelve un profesor de la UTM</p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idProfesor": 2,
+                                    "nombre": "Laura",
+                                    "apellidoPaterno": "Alvarez",
+                                    "apellidoMaterno": "Guevara",
+                                    "correoProfesor": "lauu.aalv@gmail.com",
+                                    "contraseña": "123456",
+                                    "nivel": "El mas chingon de los niveles",
+                                    "idCarrera": "03",
+                                    "gradoAcademico": "Doctorado",
+                                    "tipo": "03"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Profesor"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "idProfesor",
+                        "in": "path",
+                        "required": true,
+                        "description": "idProfesor del profesor del cuál se requiere la información",
+                        "type": "number",
+                        "default": "3"
+                    }
+                ]
+            }
+        },
+        "/api/profesores/eliminar/{idProfesores}": {
+            "delete": {
+                "summary": "Eliminar un Profesor",
+                "operationId": "eliminar",
+                "parameters": [
+                    {
+                        "name": "idProfesor",
+                        "in": "path",
+                        "description": "id de la Carrera a eliminar",
+                        "required": true,
+                        "default": 3
+                    }
+                ],
+                "tags": [
+                    "Profesores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/profesores/create": {
+            "post": {
+                "summary": "Creando un profesor",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "profesor",
+                        "in": "body",
+                        "description": "profesor agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoProfesor"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Profesores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/profesores/actualizar/{idProfesor}": {
+            "put": {
+                "summary": "Modificando un Profesor",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idProfesor",
+                        "in": "path",
+                        "description": "id del profesor a actualizar",
+                        "required": true,
+                        "default": 18
+                    },
+                    {
+                        "name": "Profesores",
+                        "in": "body",
+                        "description": "Profesor a modificar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ViejoProfesor"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Profesores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tipoProfesores": {
+            "get": {
+                "tags": [
+                    "Tipos de Profesores"
+                ],
+                "summary": "Listado de todos los Tipos de Profesores que existen en la UTM.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los tipos de profesor que existen en la UTM.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los Tipos de profesor existentes en la UTM?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idTipoProfesor": "1",
+                                    "nombreTipo": "Profesor Investigador"
+                                },
+                                {
+                                    "idTipoProfesor": "2",
+                                    "nombreTipo": "Profesor de Catedras Conacyt"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/TiposDeProfesor"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tipoProfesores/{idTipoProfesor}": {
+            "get": {
+                "tags": [
+                    "Tipos de Profesores"
+                ],
+                "summary": "Listado de un tipo de profesor en particular.",
+                "description": "<p>Servicio que devuelve un tipo de profesor de la UTM</p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "idTipoProfesor": 1,
+                                    "nombreTipo": "Profesor Investigador"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/TipoProfesor"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "idTipoProfesor",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del tipo de profesor del cuál se requiere la información",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/tipoProfesores/eliminar/{idTipoProfesor}": {
+            "delete": {
+                "summary": "Eliminar un Tipo de Profesor",
+                "operationId": "eliminar",
+                "parameters": [
+                    {
+                        "name": "idTipoProfesor",
+                        "in": "path",
+                        "description": "id del tipo profesor a eliminar",
+                        "required": true,
+                        "default": 1
+                    }
+                ],
+                "tags": [
+                    "Tipos de Profesores"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        
+        "/api/tipoProfesores/create": {
+            "post": {
+                "summary": "Creando un tipo de profesor",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Tipo de Profesor",
+                        "in": "body",
+                        "description": "Tipo de profesor agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoTipoProfesor"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Tipos de Profesores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tipoProfesores/actualizar/{idTipoProfesor}": {
+            "put": {
+                "summary": "Modificando un Tipo de profesor",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idTipoProfesor",
+                        "in": "path",
+                        "description": "id del tipo de profesor a eliminar",
+                        "required": true,
+                        "default": 1
+                    },
+                    {
+                        "name": "Tipo de Profesor",
+                        "in": "body",
+                        "description": "Tipo de profesor a modificar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ViejoTipoProfesor"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Tipos de Profesores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "respuesta vacía"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        }
+
+
+    },
+    "definitions": {
+        "Instituto": {
+            "type": "object",
+            "properties": {
+                "idInstituto": {
+                    "type": "number",
+                    "description": "Identificador del instituto"
+                },
+                "codigo": {
+                    "type": "string",
+                    "description": "Código del instituto"
+                },
+                "nombreInstituto": {
+                    "type": "string",
+                    "description": "Nombre del instituto"
+                }
+            }
+        },
+        "ViejoInstituto": {
+            "type": "object",
+            "required": [
+                "codigo",
+                "nombre"
+            ],
+            "properties": {
+                "codigo": {
+                    "type": "string",
+                    "default": "111"
+                },
+                "nombre": {
+                    "type": "string",
+                    "default": "Instituto patito"
+                }
+            }
+        },
+        "Institutos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Instituto"
+            }
+        },
+        "NuevoInstituto": {
+            "type": "object",
+            "required": [
+                "codigo",
+                "nombre"
+            ],
+            "properties": {
+                "codigo": {
+                    "type": "string",
+                    "default": "111"
+                },
+                "nombre": {
+                    "type": "string",
+                    "default": "Instituto patito"
+                }
+            }
+        },
+        "Carrera": {
+            "type": "object",
+            "properties": {
+                "idCarrera": {
+                    "type": "number",
+                    "description": "ID de la carrera"
+                },
+                "codigoCarrera": {
+                    "type": "string",
+                    "description": "Código de la Carrera"
+                },
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre de de la Carrera"
+                },
+                "idInstituto": {
+                    "type": "number",
+                    "description": "Identificador del Instituto al cual pertenece la carrera"
+                }
+            }
+        },
+        "ViejaCarrera": {
+            "type": "object",
+            "required": [
+                "codigoCarrera",
+                "nombre",
+                "idInstituto"
+            ],
+            "properties": {
+                "codigoCarrera": {
+                    "type": "string",
+                    "default": "03"
+                },
+                "nombre": {
+                    "type": "string",
+                    "default": "Carrera Chida"
+                },
+                "idInstituto": {
+                    "type": "number",
+                    "default": "03"
+                }
+            }
+        },
+        "Carreras": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Carrera"
+            }
+        },
+        "NuevaCarrera": {
+            "type": "object",
+            "required": [
+                "codigoCarrera",
+                "nombre",
+                "idInstituto"
+            ],
+            "properties": {
+                "codigoCarrera": {
+                    "type": "string",
+                    "default": "03"
+                },
+                "nombre": {
+                    "type": "string",
+                    "default": "Carrera perrona"
+                },
+                "idInstituto": {
+                    "type": "number",
+                    "default": "03"
+                }
+            }
+        },
+        "Profesor": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre del Profesor"
+                },
+                "apellidoPaterno": {
+                    "type": "string",
+                    "description": "Apellido Paterno del Profesor"
+                },
+                "apellidoMaterno": {
+                    "type": "string",
+                    "description": "Apellido Materno del Profesor"
+                },
+                "correoProfesor": {
+                    "type": "text",
+                    "description": "Correo del Profesor"
+                },
+                "contraseña": {
+                    "type": "text",
+                    "description": "Contraseña del Profesor"
+                },
+                "nivel": {
+                    "type": "text",
+                    "description": "Nivel del Profesor"
+                },
+                "idCarrera": {
+                    "type": "number",
+                    "description": "IdCarrera del Profesor"
+                },
+                "gradoAcademico": {
+                    "type": "text",
+                    "description": "Grado academico del Profesor"
+                },
+                "tipo": {
+                    "type": "number",
+                    "description": "Tipo del Profesor"
+                }
+            }
+        },
+        "ViejoProfesor": {
+            "type": "object",
+            "required": [
+                "nombre",
+                "apellidoPaterno",
+                "apellidoMaterno",
+                "correoProfesor",
+                "contraseña",
+                "nivel",
+                "idCarrera",
+                "gradoAcademico",
+                "tipo"
+            ],
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "default": "Laura"
+                },
+                "apellidoPaterno": {
+                    "type": "string",
+                    "default": "Alvarez"
+                },
+                "apellidoMaterno": {
+                    "type": "string",
+                    "default": "Guevara"
+                },
+                "correoProfesor": {
+                    "type": "text",
+                    "default": "lauu.aalv@gmail.com"
+                },
+                "contraseña": {
+                    "type": "text",
+                    "default": "12345"
+                },
+                "nivel": {
+                    "type": "text",
+                    "default": "Nivel Muy Alto"
+                },
+                "idCarrera": {
+                    "type": "number",
+                    "default": "002"
+                },
+                "gradoAcademico": {
+                    "type": "text",
+                    "default": "Doctora"
+                },
+                "tipo": {
+                    "type": "number",
+                    "default": "3"
+                }
+            }
+        },
+        "Profesores": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Profesor"
+            }
+        },
+        "NuevoProfesor": {
+            "type": "object",
+            "required": [
+                "nombre",
+                "apellidoPaterno",
+                "apellidoMaterno",
+                "correoProfesor",
+                "contraseña",
+                "nivel",
+                "idCarrera",
+                "gradoAcademico",
+                "tipo"
+            ],
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "default": "Raul"
+                },
+                "apellidoPaterno": {
+                    "type": "string",
+                    "default": "Ruvalcaba"
+                },
+                "apellidoMaterno": {
+                    "type": "string",
+                    "default": "Barajas"
+                },
+                "correoProfesor": {
+                    "type": "text",
+                    "default": "corvohyatt@gmail.com"
+                },
+                "contraseña": {
+                    "type": "text",
+                    "default": "481632"
+                },
+                "nivel": {
+                    "type": "text",
+                    "default": "Nivel Muy Muy Alto"
+                },
+                "idCarrera": {
+                    "type": "number",
+                    "default": "003"
+                },
+                "gradoAcademico": {
+                    "type": "text",
+                    "default": "Doctor"
+                },
+                "tipo": {
+                    "type": "number",
+                    "default": "4"
+                }
+            }
+        },
+        "TipoProfesor": {
+            "type": "object",
+            "properties": {
+                "idTipoProfesor": {
+                    "type": "number",
+                    "description": "Identificador del Tipo de profesor"
+                },
+                "nombreTipo": {
+                    "type": "string",
+                    "description": "Nombre del Tipo de profesor"
+                }
+            }
+        },
+        "ViejoTipoProfesor": {
+            "type": "object",
+            "required": [
+                "nombreTipo"
+            ],
+            "properties": {
+                "nombreTipo": {
+                    "type": "string",
+                    "default": "Profesor Investigador"
+                }
+            }
+        },
+        "TiposDeProfesor": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/TipoProfesor"
+            }
+        },
+        "NuevoTipoProfesor": {
+            "type": "object",
+            "required": [
+                "nombreTipo"
+            ],
+            "properties": {
+                "nombreTipo": {
+                    "type": "string",
+                    "default": "Profesor Investigador"
+                }
+            }
+        }
+    }
+}
