@@ -14,7 +14,9 @@
                 </select>
             </div>
             <table>
-                <tr *ngFor="let articulo of articulos; let i=index">
+                <tr *ngFor="let articulo of articulos | paginate: {
+                    itemsPerPage: 5,
+                    currentPage: pages}; let i=index">
                     <!-- el * es para un for-->
                     <td>
                         <div class="container base">
@@ -29,8 +31,10 @@
                                     <h6>
                                         <th>{{articulo.titulo}}</th>
                                     </h6>
-                                    <div *ngFor="let aut of articulo.profesores">
-                                        <tr>{{aut.nombresP}} {{aut.apellidoP }} {{aut.apellidoM}} <sup>{{aut.pos}} </sup></tr>
+                                    <div *ngFor="let aut of
+                                        articulo.profesores">
+                                        {{aut.nombresP}} {{aut.apellidoP }} {{aut.apellidoM}} <sup>{{aut.pos}}
+                                        </sup>
                                     </div>
                                 </td>
                             </div>
@@ -40,3 +44,6 @@
         </div>
     </div>
 </div>
+
+<pagination-controls class="center" (pageChange)="pages=($event)" previousLabel="Anterior" nextLabel="Siguiente">
+</pagination-controls>

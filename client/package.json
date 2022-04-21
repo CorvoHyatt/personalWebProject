@@ -21,10 +21,12 @@
     "jquery": "^3.6.0",
     "material-design-icons": "^3.0.1",
     "materialize-css": "^1.0.0",
+    "ngx-pagination": "^5.1.1",
     "npkill": "^0.8.3",
     "rxjs": "^7.4.0",
     "sweetalert2": "^11.4.4",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

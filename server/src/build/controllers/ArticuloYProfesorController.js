@@ -52,19 +52,6 @@ class ArticuloYProfesorController {
             res.json(resp);
         });
     }
-    profesoresByArticulo(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { idArticulo } = req.params;
-            const respuesta = yield database_1.default.query(`SELECT nombres FROM profesores, articulos, articuloyprofesor 
-		WHERE articulos.idArticulo=${idArticulo} AND articuloyprofesor.idArticulo = articulos.idArticulo 
-		AND articuloyprofesor.idProfesor = profesores.idProfesor;`);
-            if (respuesta.length > 0) {
-                res.json(respuesta);
-                return;
-            }
-            res.status(404).json({ 'mensaje': 'Articulo no encontrado' });
-        });
-    }
     articulosByCarrera(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { idCarrera } = req.params;

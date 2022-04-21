@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit {
 	) {
 		this.articulo = new Articulo();
 		this.profesor = new Profesor();
-		console.log(this.articulo)
 		this.idProfesor = Number(localStorage.getItem('idProfesor'));
 		this.location = location.href;
 
@@ -66,7 +65,6 @@ export class HomeComponent implements OnInit {
 
 	darAltaArticulo() {
 		this.articuloService.create(this.articulo, this.idProfesor).subscribe((resProfesor: any) => {
-			console.log(resProfesor);
 
 		},
 			err => console.error(err))
@@ -77,10 +75,12 @@ export class HomeComponent implements OnInit {
 			icon: 'success',
 			title: 'Publicación Agregada',
 			confirmButtonAriaLabel: 'Thumbs up, great!'
+		}).then(() =>{
+			if (this.location == 'http://localhost:4200/home/articulos/' + this.idProfesor || this.location == 'http://localhost:4200/home/listarArticulos/'+this.idProfesor) {
+				document.location.reload()
+			}
+
 		})
-		if (this.location == 'http://localhost:4200/home/articulos/' + this.idProfesor || this.location == 'http://localhost:4200/home/listarArticulos/'+this.idProfesor) {
-			document.location.reload()
-		}
 	}
 
 	altaProfesorB() {
@@ -92,7 +92,6 @@ export class HomeComponent implements OnInit {
 
 		this.institutoService.listInstitutos().subscribe((resInstitutos: any) => {
 			this.institutos = resInstitutos;
-			console.log(this.institutos);
 
 		}, err => console.error(err))
 
@@ -105,7 +104,6 @@ export class HomeComponent implements OnInit {
 		this.tipoProfesorService.listTipoProfesor().subscribe((resTipo: any) => {
 
 			this.tipoProfesor = resTipo;
-			console.log(this.tipoProfesor);
 
 		}, err => console.error(err))
 
@@ -113,7 +111,6 @@ export class HomeComponent implements OnInit {
 
 	darAltaProfesor() {
 
-		console.log(this.profesor);
 		this.profesorService.guardarProfesor(this.profesor).subscribe((resProf) => {
 		}, err => console.error(err))
 		$('#altaProfesor').modal({ dismissible: false });

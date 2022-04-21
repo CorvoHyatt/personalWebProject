@@ -15,10 +15,36 @@
                         <li><a (click)="altaProfesor()">Profesores</a></li>
                         <li><a>Comisiones</a></li>
                     </ul>
+                    <ul id="dropdown-menu-importar" class="dropdown-content">
+                        <li>
+                            <a (click)="migrarProfesor()">Profesores</a>
+                        </li>
+                        <li><a>Articulos</a></li>
+                        <li><a>Eventos</a></li>
+                    </ul>
+                    <ul id="dropdown-menu-exportar" class="dropdown-content">
+                        <li>
+                            <a>Profesores</a>
+                        </li>
+                        <li><a>Articulos</a></li>
+                        <li><a>Eventos</a></li>
+                    </ul>
                     <li>
 
                         <a class="dropdown-trigger" data-target="dropdown-menu-agregar">
                             Agregar
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-trigger" data-target="dropdown-menu-importar">
+                            Importar
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-trigger" data-target="dropdown-menu-exportar">
+                            Exportar
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
                     </li>
@@ -47,6 +73,35 @@
                         <li><a href="/home/listarCarreras/{{idProfesor}}">Carreras</a></li>
                         <li><a href="/home/listarArticulos/{{idProfesor}}">Articulos</a></li>
                     </ul>
+
+                    <!-- MIGRAR MODAL -->
+                    <div class="modal input-field" id="migrarProfesor">
+                        <div class="row file">
+                            <form action="#">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        <input (change)="cargarExcelProfesor($event)" type="file">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col s6 center">
+                                <a (click)="fMigrarProfesor()" class="modal-action waves-effect
+                                    waves-green btn-flat">Importar</a>
+                            </div>
+                            <div class="col s6 center">
+                                <a class="modal-action modal-close
+                                    waves-effect waves-green btn-flat">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <div id="altaProfesor" class="modal">
                         <div class="modal-content">

@@ -13,7 +13,7 @@ class ArticuloYProfesorRoutes {
         this.router.post('/create', ArticuloYProfesorController_1.articuloYProfesorController.create);
         this.router.delete('/delete/:idArticuloYProfesor', ArticuloYProfesorController_1.articuloYProfesorController.delete);
         this.router.put('/update/:idArticuloYProfesor', ArticuloYProfesorController_1.articuloYProfesorController.update);
-        this.router.get('/profesoresByArticulo/:idArticulo', ArticuloYProfesorController_1.articuloYProfesorController.profesoresByArticulo);
+        // this.router.get('/profesoresByArticulo/:idArticulo', articuloYProfesorController.profesoresByArticulo)
         this.router.get('/articulosByCarrera/:idCarrera', ArticuloYProfesorController_1.articuloYProfesorController.articulosByCarrera);
     }
 }

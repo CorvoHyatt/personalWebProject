@@ -15,7 +15,7 @@ class ArticuloYProfesorRoutes {
 		this.router.post('/create', articuloYProfesorController.create)
 		this.router.delete('/delete/:idArticuloYProfesor', articuloYProfesorController.delete)
 		this.router.put('/update/:idArticuloYProfesor', articuloYProfesorController.update)
-		this.router.get('/profesoresByArticulo/:idArticulo', articuloYProfesorController.profesoresByArticulo)
+		// this.router.get('/profesoresByArticulo/:idArticulo', articuloYProfesorController.profesoresByArticulo)
 		this.router.get('/articulosByCarrera/:idCarrera', articuloYProfesorController.articulosByCarrera)
 	}
 

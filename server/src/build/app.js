@@ -51,7 +51,22 @@ class Server {
         this.app.post('/enviarCorreoRecuperarContrasena', (req, res) => {
             correoAcceso(req.body);
         });
-        this.app.post('/guardarArchivo', (req, res) => {
+        this.app.post('/guardarArchivo', (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let extension = req.body.extension;
+            extension = extension.split("/", 3)[1];
+            let icono = "";
+            if (extension == "pdf")
+                icono = "las la-file-pdf";
+            else if (extension == "docx")
+                icono = "las la-file-word";
+            else
+                icono = "las la-file-image";
+            let dato = {
+                'idArticulo': req.body.idArticulo,
+                'icono': icono,
+                'extension': extension
+            };
+            yield database_1.default.query("INSERT INTO archivoYARticulo SET ?", [dato]);
             console.log("/uploadPDF");
             console.log(__dirname);
             const file = req.body.src;
@@ -62,7 +77,7 @@ class Server {
                 console.log(err);
             });
             res.json({ fileName: name + '.pdf' });
-        });
+        }));
         //Decodificar Mail
         this.app.post('/decodificarMail', (req, res) => __awaiter(this, void 0, void 0, function* () {
             let decodificado;

@@ -43,7 +43,8 @@
                             <div class="file-field input-field">
                                 <div class="btn">
                                     <span>File</span>
-                                    <input multiple (change)="cargarArchivo($event.target, articulo.idArticulo)" type="file">
+                                    <input (change)="cargarArchivo($event)" type="file">
+                                    <!-- <input multiple (change)="cargarArchivo($event.target, articulo.idArticulo)" type="file"> -->
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input class="file-path validate" type="text">

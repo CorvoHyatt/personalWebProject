@@ -11,9 +11,10 @@ declare var $: any;
 })
 export class ListarArticulosComponent implements OnInit {
 
-  articulos: any;
+  	articulos: any;
 	institutos: any;
 	institutoActual: any;
+	pages: number = 1
 	
 	constructor(private articuloService: ArticuloService, private intitutoService: InstitutoService) {
 	}

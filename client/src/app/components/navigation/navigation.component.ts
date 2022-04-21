@@ -9,6 +9,8 @@ import { InstitutoService } from 'src/app/services/instituto.service'
 import { ProfesorService } from 'src/app/services/profesor.service'
 import { TipoProfesorService } from 'src/app/services/tipo-profesor.service'
 import Swal from 'sweetalert2'
+import * as XLSX from 'xlsx'
+
 declare var $: any
 @Component({
   selector: 'app-navigation',
@@ -26,6 +28,15 @@ export class NavigationComponent implements OnInit {
   institutoActual: any;
   numCarByInst: any;
   location: any;
+  file: any
+  uploadEvent: any
+  arrayBuffer: any
+
+
+
+  exceljsondata: any
+
+
 
   constructor(
     private router: Router,
@@ -135,12 +146,66 @@ export class NavigationComponent implements OnInit {
       icon: 'success',
       title: 'Profesor Agregado',
       confirmButtonAriaLabel: 'Thumbs up, great!'
+    }).then(() => {
+      if (this.location == 'http://localhost:4200/home/listarProfesores/' + this.idProfesor) {
+        document.location.reload()
+      }
     })
-    if(this.location == 'http://localhost:4200/home/listarProfesores/' + this.idProfesor){
-			document.location.reload()
-		}
   }
 
+  cargarExcelProfesor(event: any) {
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+      console.log("Entre:", this.file);
+      this.uploadEvent = event;
+    }
+    this.file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsArrayBuffer(this.file);
+    fileReader.onload = (e) => {
+      console.log("fileReader.result", fileReader.result);
+      this.arrayBuffer = fileReader.result;
+      var data = new Uint8Array(this.arrayBuffer);
+      var arr = new Array();
+      for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+      console.log("arr:", arr);
+      var bstr = arr.join("");
+      var workbook = XLSX.read(bstr, { type: "binary" });
+      console.log(workbook);
+      var first_sheet_name = workbook.SheetNames[0];
+      var worksheet = workbook.Sheets[first_sheet_name];
+      this.exceljsondata = XLSX.utils.sheet_to_json(worksheet, { raw: true })
+      console.log(this.exceljsondata);
+    }
+  }
+
+  migrarProfesor() {
+    $('#migrarProfesor').modal({ dismissible: false });
+    $('#migrarProfesor').modal('open');
+  }
+
+  fMigrarProfesor() {
+
+    this.exceljsondata.map((profesor: any) => {
+
+      console.log(profesor);
+      // this.profesorService.guardarProfesor(profesor).subscribe((resProfesor) =>{},err =>{console.log(err);})
+    })
+
+    $('#migrarProfesor').modal({ dismissible: false });
+    $('#migrarProfesor').modal('close');
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Profesores Migrados',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    }).then(() => {
+      if (this.location == 'http://localhost:4200/home/listarProfesores/' + this.idProfesor) {
+        document.location.reload()
+      }
+    })
+
+  }
 
 
 
