@@ -1,0 +1,7 @@
+/* .dropdown-content {
+    overflow: visible !important;
+} */
+
+.dropdown-content {
+    overflow-y: visible !important;
+}
