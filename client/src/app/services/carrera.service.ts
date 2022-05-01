@@ -24,7 +24,10 @@ export class CarreraService {
 		return this.http.put(`${environment.API_URI}/Articulo/update/${idCarrera}`,articulo);
 	}
   borrarCarrera(idCarrera: number) {
-    return this.http.delete(`${environment.API_URI}/profesores/delete/${idCarrera}`)
+    return this.http.delete(`${environment.API_URI}/carrera/delete/${idCarrera}`);
+  }
+  create(carrera:Carrera){
+    return this.http.post(`${environment.API_URI}/carrera/create/`, carrera);
   }
 }
 

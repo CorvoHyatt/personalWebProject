@@ -11,7 +11,7 @@ export class InstitutoService {
   constructor(private http: HttpClient) { }
 
   
-  listInstitutos() {
+  list() {
     return this.http.get(`${environment.API_URI}/institutos/`);
   }
   listOne(idInstituto: number){
@@ -21,6 +21,10 @@ export class InstitutoService {
     return this.http.delete(`${environment.API_URI}/institutos/delete/${idInstituto}`);
   }
   update(instituto: Instituto) {
-    return this.http.put(`${environment.API_URI}/profesores/update/${instituto.idInstituto}`, instituto)
+    return this.http.put(`${environment.API_URI}/institutos/update/${instituto.idInstituto}`, instituto)
+  }
+
+  create(instituto:Instituto){
+    return this.http.post(`${environment.API_URI}/institutos/create/`, instituto)
   }
 }

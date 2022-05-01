@@ -20,7 +20,7 @@ export class ListarArticulosComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.intitutoService.listInstitutos().subscribe((resInstitutos: any) => {
+		this.intitutoService.list().subscribe((resInstitutos: any) => {
 			this.institutos = resInstitutos;
 			this.institutoActual = this.institutos[1].idInstituto;
 			this.articuloService.articulosByInstituto( this.institutoActual).subscribe((resArticulos: any) => {

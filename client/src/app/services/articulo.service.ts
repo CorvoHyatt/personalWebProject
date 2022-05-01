@@ -11,6 +11,9 @@ export class ArticuloService {
 
 	constructor(private http: HttpClient) { }
 
+	list(){
+		return this.http.get(`${environment.API_URI}/articulo/`);
+	}
 	listByProfesor(idProfesor: number) {
 		return this.http.get(`${environment.API_URI}/articulo/${idProfesor}`);
 	}

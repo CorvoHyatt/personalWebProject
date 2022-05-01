@@ -7,12 +7,15 @@
     </a>
     <ul>
         <!-- // FIXME: Modificar boton -->
-        <li><a (click)="altaProfesorB()" class="btn-floating blue darken-3"><i class="material-icons">person</i></a></li>
-        <li><a (click)="agregarArticulo()" class="btn-floating indigo darken-3"><i class="material-icons">class</i></a></li>
+        <li><a (click)="altaProfesorB()" class="btn-floating blue darken-3"><i
+                    class="material-icons">person</i></a></li>
+        <li><a (click)="agregarArticulo()" class="btn-floating indigo darken-3"><i
+                    class="material-icons">class</i></a></li>
     </ul>
 </div>
 
 
+<!-- Alta Articulo Modal -->
 <div id="agregarArticulo" class="modal">
     <div class="modal-content">
         <div class="row" style="margin-bottom: 0px !important;">
@@ -23,149 +26,123 @@
 
         <div style="border: .5px solid #78909c; padding: 10px;">
             <div class="row">
-                <div class="col s12">
+                <div class="col s3">
                     <label>Tipo CLR</label>
                     <select class="browser-default" [(ngModel)]="articulo.tipCLR">
-						<option *ngFor='let item of tipCLR'>{{item}}</option>
-					</select>
+                        <option *ngFor='let item of tipCLR'>{{item}}</option>
+                    </select>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
+                <div class="col s9">
                     <label>Titulo de la Publicación</label>
                     <input [(ngModel)]='articulo.titulo' type="text">
                 </div>
             </div>
             <div class="row">
-                <div class="col s12">
+                <div class="col s6">
                     <label>Nombre CLR</label>
                     <input [(ngModel)]='articulo.nombreCLR' type="text">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
+                <div class="col s6">
                     <label>Estado</label>
                     <input [(ngModel)]='articulo.estado' type="text">
                 </div>
             </div>
 
+
             <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     <label>Fecha Edición</label>
                     <input [(ngModel)]='articulo.fechaEdicion' type="text">
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     <label>Tipo NI</label>
                     <input [(ngModel)]='articulo.tipoNI' type="text">
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     <label>Volumen</label>
                     <input [(ngModel)]='articulo.volumen' type="text">
                 </div>
             </div>
 
 
+
             <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     <label>Paginas</label>
                     <input [(ngModel)]='articulo.paginas' type="text">
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     <label>Año</label>
                     <input [(ngModel)]='articulo.anyo' type="text">
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     <label>Doi</label>
                     <input [(ngModel)]='articulo.doi' type="text">
                 </div>
             </div>
 
 
+
             <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     <label>Comprobante</label>
                     <input [(ngModel)]='articulo.comprobante' type="text">
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     <label>Indexa</label>
                     <input [(ngModel)]='articulo.indexa' type="text">
                 </div>
-            </div>
 
-
-            <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     <label>Issue</label>
                     <input [(ngModel)]='articulo.issue' type="text">
                 </div>
             </div>
 
 
+
+
+
             <div class="row">
-                <div class="col s12">
+                <div class="col s6">
                     <label>Editores</label>
                     <input [(ngModel)]='articulo.editores' type="text">
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col s12">
-                    <label>Ciudad</label>
-                    <input [(ngModel)]='articulo.cuidad' type="text">
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col s12">
-                    <label>Pais</label>
-                    <input [(ngModel)]='articulo.pais' type="text">
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col s12">
+                <div class="col s6">
                     <label>Editorial</label>
                     <input [(ngModel)]='articulo.editorial' type="text">
                 </div>
             </div>
 
+
+            <div class="row">
+                <div class="col s6">
+                    <label>Ciudad</label>
+                    <input [(ngModel)]='articulo.cuidad' type="text">
+                </div>
+                <div class="col s6">
+                    <label>Pais</label>
+                    <input [(ngModel)]='articulo.pais' type="text">
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col s6 center">
-                    <a (click)="darAltaArticulo()" class=" modal-action 
-	waves-effect waves-green btn-flat">Enviar</a>
+                    <a (click)="darAltaArticulo()" class="modal-action
+                        waves-effect waves-green btn-flat">Enviar</a>
                 </div>
                 <div class="col s6 center">
-                    <a class=" modal-action modal-close waves-effect waves-green
-	btn-flat">Cancelar</a>
+                    <a class="modal-action modal-close waves-effect waves-green
+                        btn-flat">Cancelar</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!------------------------------------------------------------------------->
 
+
+<!-- Alta Profesor Modal -->
 <div id="altaProfesorB" class="modal">
     <div class="modal-content">
         <div class="row" style="margin-bottom: 0px
@@ -187,14 +164,12 @@
             <div class="row">
                 <div class="col s6 input-field">
                     <label class="active"> Apellido Paterno</label>
-                    <input [(ngModel)]="profesor.apellidoP" type="text" placeholder="Apellido
-                        Paterno">
+                    <input [(ngModel)]="profesor.apellidoP" type="text" placeholder="Apellido Paterno">
                 </div>
 
                 <div class="col s6 input-field">
                     <label class="active"> Apellido Materno</label>
-                    <input [(ngModel)]="profesor.apellidoM" type="text" placeholder="Apellido
-                        Materno">
+                    <input [(ngModel)]="profesor.apellidoM" type="text" placeholder="Apellido Materno">
                 </div>
             </div>
             <div class="row">
@@ -262,7 +237,8 @@
 
             <div class="row">
                 <div class="col s6 center">
-                    <a (click)="darAltaProfesor()" class="modal-action waves-effect
+                    <a (click)="darAltaProfesor()" class="modal-action
+                        waves-effect
                         waves-green btn-flat">Enviar</a>
                 </div>
                 <div class="col s6 center">
@@ -273,4 +249,7 @@
         </div>
     </div>
 </div>
+
+<!------------------------------------------------------------------------->
+
 <!-- <app-footer></app-footer> -->

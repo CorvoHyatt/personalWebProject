@@ -23,7 +23,7 @@ export class ListarInstitutosComponent implements OnInit {
       $('select').formSelect();
     });
 
-    this.intitutoService.listInstitutos().subscribe((resInstitutos: any) => {
+    this.intitutoService.list().subscribe((resInstitutos: any) => {
       this.institutos = resInstitutos;
     });
   }

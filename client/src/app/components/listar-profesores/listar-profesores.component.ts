@@ -36,7 +36,7 @@ export class ListarProfesoresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.institutosService.listInstitutos().subscribe((resInstitutos) => {
+    this.institutosService.list().subscribe((resInstitutos) => {
       this.institutos = resInstitutos;
     }, err => console.error(err));
     this.carreraService.listCarreraByInstituto(1).subscribe((resCarreras: any) => {

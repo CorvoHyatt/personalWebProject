@@ -17,7 +17,7 @@
                     <tbody>
 
                         <tr>
-                            <th class="left" style="padding-left: 40px;">Nombre</th>
+                            <th class="left " style="padding-left: 40px;">Nombre</th>
                             <td> <input [(ngModel)]="profesor.nombresP" type="text" placeholder="Grado"></td>
                         </tr>
 
@@ -40,13 +40,15 @@
                             <td> <input [(ngModel)]="profesor.correoProfesor" type="text" placeholder="Grado"></td>
                         </tr>
                         <tr>
-                            <!-- TODO:Mostrar Nombre y no numero -->
+                            <th class="left" style="padding-left: 40px;">Nivel</th>
+                            <td>{{niveles[profesor.nivel - 1]}}</td>
+                        </tr>
+                        <tr>
                             <th class="left" style="padding-left: 40px;">Instituto</th>
                             <td>{{instituto.nombreInstituto}}</td>
                         </tr>
 
                         <tr>
-                            <!-- TODO:Mostrar Nombre y no numero -->
                             <th class="left" style="padding-left: 40px;">Carrera</th>
                             <td>{{carrera.nombreCarrera}}</td>
                         </tr>

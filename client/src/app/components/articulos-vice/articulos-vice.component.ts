@@ -45,7 +45,7 @@ export class ArticulosViceComponent implements OnInit {
 			$('select').formSelect();
 		});
 
-		this.institutosService.listInstitutos().subscribe((resInstitutos: any) => {
+		this.institutosService.list().subscribe((resInstitutos: any) => {
 			//Catch institutos 
 			console.log(resInstitutos);// <==
 			this.institutos = resInstitutos;

@@ -29,7 +29,7 @@ export class ListarCarrerasComponent implements OnInit {
       $('select').formSelect();
     });
 
-    this.institutoService.listInstitutos().subscribe((resInstitutos: any) => {
+    this.institutoService.list().subscribe((resInstitutos: any) => {
       this.institutos = resInstitutos;
       this.institutoActual = this.institutos[1].idInstituto;
       this.carreraService.listCarreraByInstituto(this.institutoActual).subscribe((resCarreras: any) => {

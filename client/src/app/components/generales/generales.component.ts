@@ -21,22 +21,21 @@ export class GeneralesComponent implements OnInit {
   profesor: Profesor
   carrera: Carrera
   instituto: Instituto
-
-
-
+  niveles:any[] = ["Vice Rector","Director de Instituto", "Jefe de Carrera", "Profesor"]
+  
   constructor(
     private route: ActivatedRoute,
     private profesorService: ProfesorService,
     private carreraService: CarreraService,
     private institutoService: InstitutoService
-  ) {
-    this.idProfesor = 0
-    this.profesor = new Profesor()
-    this.carrera = new Carrera()
-    this.instituto = new Instituto()
-  }
+    ) {
+      this.idProfesor = 0
+      this.profesor = new Profesor()
+      this.carrera = new Carrera()
+      this.instituto = new Instituto()
+    }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.idProfesor = Number(params.get('idProfesor'))
       this.profesorService.getProfesor(this.idProfesor).subscribe((resProfesor: any) => {

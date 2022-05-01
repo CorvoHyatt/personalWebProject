@@ -14,20 +14,18 @@
                 </li>
 
                 <ul id="dropdown-menu-ver" class="dropdown-content" style="min-width:
-                            150px;">
+                    150px;">
                     <li><a href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
                     <li><a href="/home/articulos/{{idProfesor}}">Articulos</a></li>
-                    <li><a>Profesores</a></li>
-                    <li><a>Comisiones</a></li>
+                    <li><a>Actividades</a></li>
+                    <li><a>Eventos</a></li>
                 </ul>
                 <!-------------------------------------------------->
 
 
 
-                <!-- VICE RECTOR SUBMENU #NOTE: Checar como hacer para que tenga más de una opción el flujo de logeo.-->
+                <!-- VICE RECTOR SUBMENU #FIXME: Integrar ngSwitchCase para forma de logeo-->
                 <ng-container *ngIf="nivelProfesorSesion == 1; else noVice">
-
-
                     <!-- AGREGAR DROPDOWN -->
                     <ul id="dropdown-menu-agregar" class="dropdown-content">
                         <li><a (click)="altaProfesor()">Profesores</a></li>
@@ -44,47 +42,38 @@
 
                     <!-- IMPORTAR DROPDOWN #NOTE: Arreglar el problema de Nested Dropdowns -->
                     <li>
-                        <a class="dropdown-trigger " data-target="dropdown-menu-importar">
+                        <a class="dropdown-trigger" data-target="dropdown-menu-importar">
                             Importar
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
                     </li>
                     <ul id="dropdown-menu-importar" class="dropdown-content">
-                        <li>
-                            <a class='dropdown-trigger' data-target="dropdownProfesoresMigrar">Profesores</a>
-                        </li>
-                        <li>
-                            <a class='dropdown-trigger' data-target="dropdownProfesoresMigrar">Articulos</a>
-                        </li>
+                        <li><a (click)="importarProfesor()">Profesores <i class="las la-2x la-file-excel left"></i></a></li>
+                        <li><a (click)="importarArticulo()">Articulos <i class="las la-2x la-file-excel left"></i></a></li>
+                        <li><a (click)="importarEventos()">Eventos <i class="las la-2x la-file-excel left"></i></a></li>
+                        <li><a (click)="importarInstitutos()">Institutos <i class="las la-2x la-file-excel left"></i></a></li>
+                        <li><a (click)="importarCarreras()">Carreras <i class="las la-2x la-file-excel left"></i></a></li>
+                        <li><a (click)="importarPyA()">Profesores y Articulos <i class="las la-2x la-file-excel left"></i></a></li>
                     </ul>
-                    <ul id="dropdownProfesoresMigrar" class="dropdown-content">
-                        <li>
-                            <a (click)="importarProfesor()">Excel <i class="las
-                                    la-file-excel"></i></a>
-                        </li>
-                    </ul>
-                    <!---------------------------------------------------------------------------------->
-
-
+                    <!--------------------------------------------------------------------------->
 
                     <!-- EXPORTAR DROPDOWN -->
-                    <ul id="dropdown-menu-exportar" class="dropdown-content">
-                        <li>
-                            <a>Profesores</a>
-                        </li>
-                        <li><a>Articulos</a></li>
-                        <li><a>Eventos</a></li>
-                    </ul>
-
                     <li>
                         <a class="dropdown-trigger" data-target="dropdown-menu-exportar">
                             Exportar
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
                     </li>
+
+                    <ul id="dropdown-menu-exportar" class="dropdown-content">
+                        <li><a>Profesores <i (click)="exportarProfesores()" class="las la-2x la-file-excel left"></i><i class="las  la-2x la-file-pdf"></i><i class="las la-2x la-file-word"></i></a></li>
+                        <li><a>Articulos <i (click)="exportarArticulos()" class="las la-2x la-file-excel left"></i><i class="las  la-2x la-file-pdf"></i><i class="las la-2x la-file-word"></i></a></li>
+                        <li><a>Eventos <i (click)="exportarEventos()" class="las la-2x la-file-excel left"></i><i class="las  la-2x la-file-pdf"></i><i class="las la-2x la-file-word"></i></a></li>
+                        <li><a>Institutos <i (click)="exportarInstitutos()" class="las la-2x la-file-excel left"></i><i class="las  la-2x la-file-pdf"></i><i class="las la-2x la-file-word"></i></a></li>
+                        <li><a>Carreras <i (click)="exportarCarreras()" class="las la-2x la-file-excel left"></i><i class="las  la-2x la-file-pdf"></i><i class="las la-2x la-file-word"></i></a></li>
+                        <li><a>Profesor Y Articulo <i (click)="exportarPyA()" class="las la-2x la-file-excel left"></i><i class="las  la-2x la-file-pdf"></i><i class="las la-2x la-file-word"></i></a></li>
+                    </ul>
                     <!---------------------------------------------------------------------------------->
-
-
                     <div class="right">
 
                         <!-- LISTAR MENU -->
@@ -109,150 +98,225 @@
                         <li><a href="/home/listarArticulos/{{idProfesor}}">Articulos</a></li>
                     </ul>
 
-                    <!-- MIGRAR PROFESOR MODAL -->
 
-                    <div class="container">
-                        <div class="modal input-field" id="migrarProfesor">
-                            <div class="row file">
-                                <form action="#">
-                                    <div class="file-field input-field">
-                                        <div class="btn">
-                                            <span>File</span>
-                                            <input (change)="cargarExcelProfesor($event)" type="file">
+                    <!-- Importar PROFESOR MODAL -->
+                    <div class="center container">
+
+                        <div class="modal input-field" id="importarProfesor">
+                            <div class="container ">
+                                <div class="row file">
+                                    <h4 class="center" style="color: black;padding-top: 10px;">Importar Profesor</h4>
+                                    <form action="#">
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>File</span>
+                                                <input (change)="cargarExcel($event)" type="file">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
                                         </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text">
-                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6 center">
+                                        <a (click)="fImportarProfesor()" class="modal-action waves-effect
+                                                waves-green btn-flat">Importar</a>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="row">
-                                <div class="col s6 center">
-                                    <a (click)="fimportarProfesor()" class="modal-action waves-effect
-                                        waves-green btn-flat">Importar</a>
+                                    <div class="col s6 center">
+                                        <a class="modal-action modal-close
+                                                waves-effect waves-green btn-flat">Cancelar</a>
+                                    </div>
                                 </div>
-                                <div class="col s6 center">
-                                    <a class="modal-action modal-close
-                                        waves-effect waves-green btn-flat">Cancelar</a>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                     <!------------------------------------------------------------------------->
 
-                    <div id="altaProfesor" class="modal">
-                        <div class="modal-content">
-                            <div class="row" style="margin-bottom: 0px
-                                !important">
-                                <div class="col s12">
-                                    <h5 class="center" style="color: black;">
-                                        Alta Profesor</h5>
-                                </div>
-                            </div>
-                            <div style="border: .5px solid #78909c;padding:
-                                10px;">
-                                <div class="row">
-                                    <div class="col s12 input-field">
-                                        <label class="active"> Nombre</label>
-                                        <input [(ngModel)]="profesor.nombresP" type="text" placeholder="nombre(s)">
-                                    </div>
-                                </div>
+                    <!-- Importar Articulo MODAL -->
+                    <div class="center container">
 
-                                <div class="row">
-                                    <div class="col s6 input-field">
-                                        <label class="active"> Apellido Paterno</label>
-                                        <input [(ngModel)]="profesor.apellidoP" type="text" placeholder="Apellido
-                                            Paterno">
-                                    </div>
-
-                                    <div class="col s6 input-field">
-                                        <label class="active"> Apellido Materno</label>
-                                        <input [(ngModel)]="profesor.apellidoM" type="text" placeholder="Apellido
-                                            Materno">
-                                    </div>
+                        <div class="modal input-field" id="importarArticulo">
+                            <div class="container ">
+                                <div class="row file">
+                                    <h4 class="center" style="color: black;padding-top: 10px;">Importar Articulo</h4>
+                                    <form action="#">
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>File</span>
+                                                <input (change)="cargarExcel($event)" type="file">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="row">
-
-                                    <div class="col s6 input-field">
-                                        <label class="active"> Correo</label>
-                                        <input [(ngModel)]="profesor.correoProfesor" type="text" placeholder="Correo">
-                                    </div>
-                                    <div class="col s6 input-field">
-                                        <label class="active"> Constraseña</label>
-                                        <input [(ngModel)]="profesor.password" type="password" placeholder="Password">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label>Instituto</label>
-                                        <select (change)="cambioInstituto($event.target)" class="browser-default">
-                                            <ng-container *ngFor='let item of
-                                                institutos'>
-                                                <option
-                                                    [value]="item.idInstituto"
-                                                    *ngIf="item.idInstituto!=0">{{item.nombreInstituto}}
-                                                </option>
-                                            </ng-container>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label>Carrera</label>
-                                        <select (change)="cambioCarrera($event.target)" class="browser-default">
-                                            <option [value]="item.idCarrera"
-                                                *ngFor='let item of carreras'>{{item.nombreCarrera}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s12 input-field">
-                                        <label class="active"> Grado</label>
-                                        <input [(ngModel)]="profesor.grado" type="text" placeholder="Grado">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label>Tipo Profesor</label>
-                                        <select (change)="cambioTipoProfesor($event.target)" class="browser-default">
-                                            <option
-                                                [value]="item.idTipoProfesor"
-                                                *ngFor='let item of
-                                                tipoProfesor'>{{item.nombreTipo}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col s12 input-field">
-                                        <label class="active"> Nombre APA</label>
-                                        <input [(ngModel)]="profesor.nombreApa" type="text" placeholder="Nombre
-                                            APA">
-                                    </div>
-                                </div>
-
-
                                 <div class="row">
                                     <div class="col s6 center">
-                                        <a (click)="darAltaProfesor()" class="modal-action waves-effect
-                                            waves-green btn-flat">Enviar</a>
+                                        <a (click)="fImportarArticulo()" class="modal-action waves-effect
+                                                waves-green btn-flat">Importar</a>
                                     </div>
                                     <div class="col s6 center">
                                         <a class="modal-action modal-close
-                                            waves-effect waves-green btn-flat">Cancelar</a>
+                                                waves-effect waves-green btn-flat">Cancelar</a>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
+                    <!------------------------------------------------------------------------->
+
+                    <!-- Importar Evento MODAL -->
+                    <div classPeople="center container">
+
+                        <div class="modal input-field" id="importarEventos">
+                            <div class="container ">
+                                <div class="row file">
+                                    <h4 class="center" style="color: black;padding-top: 10px;">Importar Eventos</h4>
+                                    <form action="#">
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>File</span>
+                                                <input (change)="cargarExcel($event)" type="file">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6 center">
+                                        <a (click)="fImportarEventos()" class="modal-action waves-effect
+                                                waves-green btn-flat">Importar</a>
+                                    </div>
+                                    <div class="col s6 center">
+                                        <a class="modal-action modal-close
+                                                waves-effect waves-green btn-flat">Cancelar</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!------------------------------------------------------------------------->
+
+                    <!-- Importar Institutos MODAL -->
+                    <div classPeople="center container">
+
+                        <div class="modal input-field" id="importarInstitutos">
+                            <div class="container ">
+                                <div class="row file">
+                                    <h4 class="center" style="color: black;padding-top: 10px;">Importar Institutos</h4>
+                                    <form action="#">
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>File</span>
+                                                <input (change)="cargarExcel($event)" type="file">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6 center">
+                                        <a (click)="fImportarInstitutos()" class="modal-action waves-effect
+                                                waves-green btn-flat">Importar</a>
+                                    </div>
+                                    <div class="col s6 center">
+                                        <a class="modal-action modal-close
+                                                waves-effect waves-green btn-flat">Cancelar</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!------------------------------------------------------------------------->
+
+                    <!-- Importar Carrera MODAL -->
+                    <div classPeople="center container">
+
+                        <div class="modal input-field" id="importarCarreras">
+                            <div class="container ">
+                                <div class="row file">
+                                    <h4 class="center" style="color: black;padding-top: 10px;">Importar Carrera</h4>
+                                    <form action="#">
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>File</span>
+                                                <input (change)="cargarExcel($event)" type="file">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6 center">
+                                        <a (click)="fImportarCarreras()" class="modal-action waves-effect
+                                                waves-green btn-flat">Importar</a>
+                                    </div>
+                                    <div class="col s6 center">
+                                        <a class="modal-action modal-close
+                                                waves-effect waves-green btn-flat">Cancelar</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!------------------------------------------------------------------------->
+
+                    <!-- Importar Profesor y Articulo MODAL -->
+                    <div classPeople="center container">
+
+                        <div class="modal input-field" id="importarPyA">
+                            <div class="container ">
+                                <div class="row file">
+                                    <h4 class="center" style="color: black;padding-top: 10px;">Importar Profesores y Articulos</h4>
+                                    <form action="#">
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>File</span>
+                                                <input (change)="cargarExcel($event)" type="file">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6 center">
+                                        <a (click)="fImportarPyA()" class="modal-action waves-effect
+                                                waves-green btn-flat">Importar</a>
+                                    </div>
+                                    <div class="col s6 center">
+                                        <a class="modal-action modal-close
+                                                waves-effect waves-green btn-flat">Cancelar</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!------------------------------------------------------------------------->
+
+
+
+
+
                 </ng-container>
-
                 <!------------------------------------------------------------------------------------------------------------------>
-
-
                 <ng-template #noVice>
+
                     <li>
                         <a class="dropdown-trigger" data-target="dropdown-menu-modificar" href="#">
                             Modificar
@@ -286,3 +350,114 @@
     </ul>
 
 </header>
+
+<!-- Alta Profesor Modal -->
+<div id="altaProfesor" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important">
+            <div class="col s12">
+                <h5 class="center" style="color: black;">
+                    Alta Profesor</h5>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c;padding:10px;">
+            <div class="row">
+                <div class="col s12 input-field">
+                    <label class="active"> Nombre</label>
+                    <input [(ngModel)]="profesor.nombresP" type="text" placeholder="nombre(s)">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s6 input-field">
+                    <label class="active"> Apellido Paterno</label>
+                    <input [(ngModel)]="profesor.apellidoP" type="text" placeholder="Apellido Paterno">
+                </div>
+
+                <div class="col s6 input-field">
+                    <label class="active"> Apellido Materno</label>
+                    <input [(ngModel)]="profesor.apellidoM" type="text" placeholder="Apellido Materno">
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col s6 input-field">
+                    <label class="active"> Correo</label>
+                    <input [(ngModel)]="profesor.correoProfesor" type="text" placeholder="Correo">
+                </div>
+                <div class="col s6 input-field">
+                    <label class="active"> Constraseña</label>
+                    <input [(ngModel)]="profesor.password" type="password" placeholder="Password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label>Instituto</label>
+                    <select (change)="cambioInstituto($event.target)" class="browser-default">
+                        <ng-container *ngFor='let item of
+                            institutos'>
+                            <option
+                                [value]="item.idInstituto"
+                                *ngIf="item.idInstituto!=0">{{item.nombreInstituto}}
+                            </option>
+                        </ng-container>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Carrera</label>
+                    <select (change)="cambioCarrera($event.target)" class="browser-default">
+                        <option [value]="item.idCarrera"
+                            *ngFor='let item of carreras'>{{item.nombreCarrera}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 input-field">
+                    <label class="active"> Grado</label>
+                    <input [(ngModel)]="profesor.grado" type="text" placeholder="Grado">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s6">
+                    <label>Tipo Profesor</label>
+                    <select (change)="cambioTipoProfesor($event.target)" class="browser-default">
+                        <option
+                            [value]="item.idTipoProfesor"
+                            *ngFor='let item of
+                            tipoProfesor'>{{item.nombreTipo}}</option>
+                    </select>
+                </div>
+                <div class="col s6">
+                    <label>Nivel</label>
+                    <select (change)="cambioNivel($event.target)" class="browser-default">
+                        <option [value]="nivel" *ngFor='let nivel of niveles'>{{nivel}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12 input-field">
+                    <label class="active"> Nombre APA</label>
+                    <input [(ngModel)]="profesor.nombreApa" type="text" placeholder="Nombre APA">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s6 center">
+                    <a (click)="darAltaProfesor()" class="modal-action
+                                            waves-effect
+                                            waves-green btn-flat">Enviar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class="modal-action modal-close
+                                            waves-effect waves-green btn-flat">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

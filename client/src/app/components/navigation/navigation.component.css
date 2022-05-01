@@ -1,7 +1,27 @@
-/* .dropdown-content {
+.dropdown-content {
     overflow: visible !important;
-} */
+}
+
+.dropdown-content li>* {
+    display: flex;
+    align-items: center;
+}
 
 .dropdown-content {
-    overflow-y: visible !important;
+    width: auto !important;
+}
+
+
+/* optional */
+
+.dropdown-content a>i {
+    margin-right: 6px;
+    margin-left: 10px;
+}
+
+@media print {
+    @page {
+        size: auto;
+        margin: 0;
+    }
 }

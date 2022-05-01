@@ -4,6 +4,7 @@ import { Carrera } from 'src/app/models/carrera.model'
 import { Instituto } from 'src/app/models/instituto.model'
 import { Profesor } from 'src/app/models/profesor.model'
 import { TipoProfesor } from 'src/app/models/tipoProfesor.model'
+import { ArticuloService } from 'src/app/services/articulo.service'
 import { CarreraService } from 'src/app/services/carrera.service'
 import { InstitutoService } from 'src/app/services/instituto.service'
 import { ProfesorService } from 'src/app/services/profesor.service'
@@ -18,6 +19,7 @@ declare var $: any
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
+
   profesor: Profesor
   idProfesor: number
   nivelProfesorSesion: number
@@ -31,15 +33,13 @@ export class NavigationComponent implements OnInit {
   file: any
   uploadEvent: any
   arrayBuffer: any
-
-
-
   exceljsondata: any
-
+  niveles:any[] = ["Vice Rector","Director de Instituto", "Jefe de Carrera", "Profesor"]
 
 
   constructor(
     private router: Router,
+    private articuloService: ArticuloService,
     private carreraService: CarreraService,
     private institutoService: InstitutoService,
     private tipoProfesorService: TipoProfesorService,
@@ -61,35 +61,61 @@ export class NavigationComponent implements OnInit {
     console.log("nivel del profesor:", this.nivelProfesorSesion)
     $(document).ready(function () {
       $('.sidenav').sidenav()
-      $(".dropdown-trigger").dropdown({ coverTrigger: false,
-        inDuration: 300,
-        outDuration: 225,
-        constrain_width: false, // Does not change width of dropdown to that of the activator
-        hover: true, // Activate on hover
-        gutter: ($('.dropdown-content').width() * 2.7) / 2.5 + 2, // Spacing from edge
-        belowOrigin: false, // Displays dropdown below the button
-        alignment: 'left' // Displays dropdown with edge aligned to the left of button
-      })
+      $(".dropdown-trigger").dropdown({ coverTrigger: false, })
     })
-
   }
-
-
+  
+  
   logout() {
     localStorage.removeItem("correo");
     localStorage.removeItem("token");
     localStorage.removeItem("idProfesor");
     this.router.navigateByUrl('/');
   }
+  
+  
+  //-------------------------------- Cambio Carrera, TipoP e Instituto --------------------------------
+  cambioCarrera(op: any) {
+    this.profesor.idCarrera = Number(op.value)
+  }
 
+  cambioTipoProfesor(op: any) {
+    this.profesor.idTipoProfesor = Number(op.value);
+  }
+
+	cambioNivel(op: any) {
+    this.profesor.nivel = Number(op.value) + 1;
+  }
+
+  cambioInstituto(op: any) {
+
+    this.profesor.idInstituto = Number(op.value);
+    this.carreraService.listCarreraByInstituto(this.profesor.idInstituto).subscribe((resCarreras: any) => {
+      this.numCarByInst = resCarreras.length;
+      if (this.numCarByInst == 0)
+      this.profesor.idCarrera = 0
+      else {
+        this.profesor.idCarrera = resCarreras[0].idCarrera;
+        this.carreras = resCarreras;
+        let dato = {
+          'value': this.profesor.idCarrera
+        }
+        this.cambioCarrera(dato);
+      }
+    },
+    err => console.error(err)
+    );
+  }
+  
+  //-------------------------------- Alta Profesor --------------------------------
   altaProfesor() {
     $('#altaProfesor').modal({ dismissible: false });
     $('#altaProfesor').modal('open');
     this.profesor.idInstituto = 1;
     this.profesor.idTipoProfesor = 1
-    this.profesor.idCarrera = 4
+    this.profesor.idCarrera = 4;
 
-    this.institutoService.listInstitutos().subscribe((resInstitutos: any) => {
+    this.institutoService.list().subscribe((resInstitutos: any) => {
 
       this.institutos = resInstitutos;
 
@@ -110,41 +136,8 @@ export class NavigationComponent implements OnInit {
 
   }
 
-  cambioCarrera(op: any) {
-    this.profesor.idCarrera = Number(op.value)
-  }
-
-  cambioTipoProfesor(op: any) {
-    this.profesor.idTipoProfesor = Number(op.value);
-
-  }
-
-  cambioInstituto(op: any) {
-
-    this.profesor.idInstituto = Number(op.value);
-    this.carreraService.listCarreraByInstituto(this.profesor.idInstituto).subscribe((resCarreras: any) => {
-
-      this.numCarByInst = resCarreras.length;
-      if (this.numCarByInst == 0)
-        this.profesor.idCarrera = 0
-      else {
-        this.profesor.idCarrera = resCarreras[0].idCarrera;
-        this.carreras = resCarreras;
-        let dato = {
-          'value': this.profesor.idCarrera
-        }
-        this.cambioCarrera(dato);
-      }
-
-    },
-      err => console.error(err)
-    );
-
-  }
-
-
   darAltaProfesor() {
-
+    
     this.profesorService.guardarProfesor(this.profesor).subscribe((resProf) => {
     }, err => console.error(err))
     $('#altaProfesor').modal({ dismissible: false });
@@ -161,7 +154,9 @@ export class NavigationComponent implements OnInit {
     })
   }
 
-  cargarExcelProfesor(event: any) {
+  //-------------------------------- Cargar Excel --------------------------------
+
+  cargarExcel(event: any) {
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
       console.log("Entre:", this.file);
@@ -187,21 +182,21 @@ export class NavigationComponent implements OnInit {
     }
   }
 
+
+  //-------------------------------- Importar Profesor --------------------------------
   importarProfesor() {
     $('#importarProfesor').modal({ dismissible: false });
     $('#importarProfesor').modal('open');
   }
-
-  fimportarProfesor() {
+  fImportarProfesor() {
 
     this.exceljsondata.map((profesor: any) => {
 
-      console.log(profesor);
-      this.profesorService.guardarProfesor(profesor).subscribe((resProfesor) =>{},err =>{console.log(err);})
+      this.profesorService.guardarProfesor(profesor).subscribe((resProfesor) => { }, err => { console.log(err); })
     })
 
-    $('#migrarProfesor').modal({ dismissible: false });
-    $('#migrarProfesor').modal('close');
+    $('#importarProfesor').modal({ dismissible: false });
+    $('#importarProfesor').modal('close');
     Swal.fire({
       position: 'center',
       icon: 'success',
@@ -212,9 +207,179 @@ export class NavigationComponent implements OnInit {
         document.location.reload()
       }
     })
-
   }
 
+  
+  //-------------------------------- Importar Articulo --------------------------------
+  importarArticulo() {
+    $('#importarArticulo').modal({ dismissible: false });
+    $('#importarArticulo').modal('open');
+  }
+  
+  fImportarArticulo() {
+    this.exceljsondata.map((articulo:any) =>{
+      this.articuloService.create(articulo,this.idProfesor).subscribe((resArt:any) =>{}, err =>{console.log(err);})
+    })
 
+    $('#importarArticulo').modal({ dismissible: false });
+    $('#importarArticulo').modal('close');
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Articulos Migrados',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    }).then(() => {
+      if (this.location == 'http://localhost:4200/home/articulos/' + this.idProfesor) {
+        document.location.reload()
+      }
+    })
+  }
 
+  //-------------------------------- Importar Eventos --------------------------------
+  importarEventos() {
+    $('#importarEventos').modal({ dismissible: false });
+    $('#importarEventos').modal('open');
+  }
+  
+  fImportarEventos() {
+    this.exceljsondata.map((eventos:any) =>{
+      // this.articuloService.create(articulo,this.idProfesor).subscribe((resArt:any) =>{}, err =>{console.log(err);})
+    })
+    $('#importarEventos').modal({ dismissible: false });
+    $('#importarEventos').modal('close');
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Eventos Migrados',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
+
+  //-------------------------------- Importar Institutos --------------------------------
+  importarInstitutos() {
+    $('#importarInstitutos').modal({ dismissible: false });
+    $('#importarInstitutos').modal('open');
+  }
+  
+  fImportarInstitutos() {
+    this.exceljsondata.map((institutos:any) =>{
+      this.institutoService.create(institutos).subscribe((resArt:any) =>{}, err =>{console.log(err);})
+    })
+    $('#importarInstitutos').modal({ dismissible: false });
+    $('#importarInstitutos').modal('close');
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Eventos Migrados',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
+
+  //-------------------------------- Importar Carreras --------------------------------
+  importarCarreras() {
+    $('#importarCarreras').modal({ dismissible: false });
+    $('#importarCarreras').modal('open');
+  }
+  
+  fImportarCarreras() {
+    this.exceljsondata.map((carreras:any) =>{
+      this.carreraService.create(carreras).subscribe((resArt:any) =>{}, err =>{console.log(err);})
+    })
+    $('#importarCarreras').modal({ dismissible: false });
+    $('#importarCarreras').modal('close');
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Carreras Migradas',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
+
+  //-------------------------------- Importar Profesor y Articulo --------------------------------
+  importarPyA() {
+    $('#importarPyA').modal({ dismissible: false });
+    $('#importarPyA').modal('open');
+  }
+  
+  fImportarPyA() {
+    this.exceljsondata.map((carreras:any) =>{
+      this.carreraService.create(carreras).subscribe((resArt:any) =>{}, err =>{console.log(err);})
+    })
+    $('#importarPyA').modal({ dismissible: false });
+    $('#importarPyA').modal('close');
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Profesores y Articulos Migrados',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
+  
+
+  //-------------------------------- Exportar Profesor --------------------------------
+  exportarProfesores() {
+    let filename = 'Profesores.xlsx';
+    this.profesorService.list().subscribe((data: any) => {
+      var ws = XLSX.utils.json_to_sheet(data);
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Profesores");
+      XLSX.writeFile(wb, filename);
+    })
+  }
+  
+  //-------------------------------- Exportar Articulos --------------------------------
+  exportarArticulos(){
+    let filename = 'Articulos.xlsx'
+    this.articuloService.list().subscribe((data:any) =>{
+      var ws = XLSX.utils.json_to_sheet(data);
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Articulos");
+      XLSX.writeFile(wb, filename);
+    })
+  }
+
+  //-------------------------------- Exportar Evento --------------------------------
+  exportarEventos(){
+    let filename = 'Eventos.xlsx'
+    // this.articuloService.list().subscribe((data:any) =>{
+    //   var ws = XLSX.utils.json_to_sheet(data);
+    //   var wb = XLSX.utils.book_new();
+    //   XLSX.utils.book_append_sheet(wb, ws, "People");
+    //   XLSX.writeFile(wb, filename);
+    // })
+  }
+
+  //-------------------------------- Exportar Institutos --------------------------------
+  exportarInstitutos(){
+    let filename = 'Institutos.xlsx'
+    this.institutoService.list().subscribe((data:any) =>{
+      var ws = XLSX.utils.json_to_sheet(data);
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Institutos");
+      XLSX.writeFile(wb, filename);
+    })
+  }
+
+  //-------------------------------- Exportar Institutos --------------------------------
+  exportarCarreras(){
+    let filename = 'Carreras.xlsx'
+    this.carreraService.listCarreras().subscribe((data:any) =>{
+      var ws = XLSX.utils.json_to_sheet(data);
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Carreras");
+      XLSX.writeFile(wb, filename);
+    })
+  }
+
+  //-------------------------------- Exportar Profesores y Articulos --------------------------------
+  exportarPyA(){
+    let filename = 'ProfesoresYArticulos.xlsx'
+    // this.listCarreras().subscribe((data:any) =>{
+    //   var ws = XLSX.utils.json_to_sheet(data);
+    //   var wb = XLSX.utils.book_new();
+    //   XLSX.utils.book_append_sheet(wb, ws, "People");
+    //   XLSX.writeFile(wb, filename);
+    // })
+  }
+  
 }

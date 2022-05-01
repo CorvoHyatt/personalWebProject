@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
 		this.profesor.idTipoProfesor = 1
 		this.profesor.idCarrera = 4
 
-		this.institutoService.listInstitutos().subscribe((resInstitutos: any) => {
+		this.institutoService.list().subscribe((resInstitutos: any) => {
 			this.institutos = resInstitutos;
 
 		}, err => console.error(err))
@@ -134,7 +134,6 @@ export class HomeComponent implements OnInit {
 		this.profesor.idTipoProfesor = Number(op.value);
 
 	}
-
 	cambioInstituto(op: any) {
 
 		this.profesor.idInstituto = Number(op.value);
